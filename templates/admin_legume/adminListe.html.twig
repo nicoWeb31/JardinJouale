@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des legumes{% endblock %}
+{% block monTitle %} Listes des legumes Administrations {% endblock %}
+
+{% block body %}
+
+<a href="{{path('admin.legumes.creation')}}" class="btn btn-primary">Ajouter</a>
+<table class="table">
+    <tr class="table-primary">
+        <td>Image</td>
+        <td>Noms</td>
+        <td>type</td>
+        <td>Variétes</td>
+        <td>Action</td>
+
+    </tr>
+    {% for legume in legumes %}
+        <tr>
+        <td><img src="{{asset('img/' ~ legume.img)}}" alt="" style="width:50px"></td>
+        <td>{{legume.nom}}</td>
+        <td>{{legume.type}}</td>
+        <td>Variétes</td>
+        <td>
+            <a href="{{path('admin.legumes.modif',{'id':legume.id})}}" class="btn btn-info">Modifier</a>
+            <a href="" class="btn btn-danger" >supprimer</a>
+        </td>
+        
+    </tr>
+        {% endfor %}
+    
+
+
+
+</table>
+
+{% endblock %}

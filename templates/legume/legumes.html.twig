@@ -4,21 +4,21 @@
 {% block monTitle %} Listes des legumes {% endblock %}
 
 {% block body %}
-
-<div class="row">
-    {% for legume in legumes %}
-    <div class="col-12 col-md-6 col-lg-4 col-xl-4">
-        <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem;">
-            <div class="card-header text-center">
-                <img class="persoImg card-img-top" src="{{asset('img/' ~ legume.img)}}" alt="leg">
-            </div>
-            <div class = 'card-body'>
-                <h3 class="card-title text-center pb-2 mx-3 border-primary">{{legume.nom}}</h3>
+<div class="container-fluid">
+    <div class="row m-5 p-5">
+        {% for legume in legumes %}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem;">
+                <div class="card-header text-center">
+                    <img class="persoImg card-img-top" src="{{asset('img/' ~ legume.img)}}" alt="leg">
+                </div>
+                <div class = 'card-body'>
+                    <h3 class="card-title text-center pb-2 mx-3 border-primary">{{legume.nom}}</h3>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
-    
 
 {% endblock %}
