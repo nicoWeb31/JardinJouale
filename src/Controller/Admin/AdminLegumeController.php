@@ -25,7 +25,7 @@ class AdminLegumeController extends AbstractController
 
     /**
      * @Route("/admin/legumes/creation", name="admin.legumes.creation")
-     * @Route("/admin/legumes/{id}", name="admin.legumes.modif")
+     * @Route("/admin/legumes/{id}", name="admin.legumes.modif",methods ="GET|POST")
      */
     public function AdminLegumeCreate(Legume $legume = null, EntityManagerInterface $man, Request $req)
     {
@@ -40,8 +40,10 @@ class AdminLegumeController extends AbstractController
 
 
         if($form->isSubmitted() && $form->isValid()){
+            $modif = $legume->getId() !== null;
             $man->persist($legume);
             $man->flush();
+            $this->addFlash('success',($modif) ? "modification avec sucess" : "Crée avec success");
             return $this->redirectToRoute('admin_legumes');
 
         }
@@ -52,4 +54,28 @@ class AdminLegumeController extends AbstractController
             "isModif" => $legume->getId() !== null
         ]);
     }
+
+
+    /**
+     * 
+     * @Route("/admin/legumes/{id}", name="admin.legumes.suppr",methods ="sup")
+     * 
+     */
+    public function AdminSupprLegume(Legume $legume , EntityManagerInterface $man, Request $req)
+    {
+        if($this->isCsrfTokenValid('sup'.$legume->getNom(),$req->get('_token'))){  // si les token corresponde on supprime
+
+
+            $man->remove($legume);
+            $man->flush();
+            $this->addFlash('success',"supprission reussi ");
+            return $this->redirectToRoute('admin_legumes');
+
+
+        }
+
+
+    }
+
+
 }

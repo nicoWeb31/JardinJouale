@@ -13,16 +13,17 @@
 
 
 
+
 {% block body %}
+
 <div class="container">
 
 
 <img style="width: 150px " src="{{asset('img/' ~ legume.img)}}" alt="">
 {{form_start(form)}}
 {{form_row(form.nom, {"attr":{"class" : "text-dark bg-white"},
+
 "label":"Nom : "})}}
-{{form_row(form.img, {"attr":{"class" : "text-dark"},
-"label": "Image : "})}}
 
 {{form_widget(form)}}
 <input type="submit" class="btn btn-info"  value="Modifier">

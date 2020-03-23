@@ -3,9 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LegumeRepository")
+ * @Vich\Uploadable
  */
 class Legume
 {
@@ -18,17 +25,28 @@ class Legume
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3,max=30)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $img;
 
+
+
+    /**
+     * @Vich\UploadableField(mapping="legume_image", fileNameProperty="img")
+     */
+    private $imgFile;
+
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(min=3,max=30,minMessage ="nom trop court",maxMessage="30 caractére maxi")
      */
+
     private $type;
 
     public function getId(): ?int
@@ -70,5 +88,22 @@ class Legume
         $this->type = $type;
 
         return $this;
+    }
+
+    public function setImgFile(?File $imgFile = null): self
+    {
+        $this->imageFile = $imgFile;
+
+        // if (null !== $imgFile) {
+        //     // It is required that at least one field changes if you are using doctrine
+        //     // otherwise the event listeners won't be called and the file is lost
+        //     $this->updatedAt = new \DateTimeImmutable();
+        // }
+        return $this;
+    }
+
+    public function getImgFile(): ?File
+    {
+        return $this->imgFile;
     }
 }

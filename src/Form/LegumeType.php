@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Legume;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,7 @@ class LegumeType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('img')
+            ->add('imgFile',FileType::class,['required' => false])
             ->add('type')
         ;
     }

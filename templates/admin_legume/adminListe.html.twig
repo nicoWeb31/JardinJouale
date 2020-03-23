@@ -5,6 +5,12 @@
 
 {% block body %}
 
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+
 <a href="{{path('admin.legumes.creation')}}" class="btn btn-primary">Ajouter</a>
 <table class="table">
     <tr class="table-primary">
@@ -23,7 +29,11 @@
         <td>Variétes</td>
         <td>
             <a href="{{path('admin.legumes.modif',{'id':legume.id})}}" class="btn btn-info">Modifier</a>
-            <a href="" class="btn btn-danger" >supprimer</a>
+            <form action="{{path('admin.legumes.suppr',{'id':legume.id})}}" method="POST" class="d-inline" onsubmit="return confirm('comfirmer suppression?')">
+                <input type="hidden" name="_method" value='sup'>
+                <input type="hidden" name="_token" value="{{csrf_token('sup'~ legume.nom)}}">
+                <input type="submit" class="btn btn-danger" value="supression">
+            </form>
         </td>
         
     </tr>
