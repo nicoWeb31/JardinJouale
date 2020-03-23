@@ -1,0 +1,43 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des Varietes{% endblock %}
+{% block monTitle %}Listes des Varietes{% endblock %}
+
+{% block body %}
+
+{# {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %} #}
+
+<a href="{{path('admin.variete.creation')}}" class="btn btn-primary">Ajouter</a>
+<table class="table">
+    <tr class="table-primary">
+        <td>Type</td>
+        <td>Nom</td>
+        <td>Quantites</td>
+        <td>commentaire</td>
+        <td>Action</td>
+
+    </tr>
+    {% for var in variete %}
+        <tr>
+        <td>{{var.legume.nom}}</td>
+        <td>{{var.nom}}</td>
+        <td>{{var.quantites}}</td>
+        <td>{{var.commentaire}}</td>
+        <td>
+            <a href="{{path('admin.variete.modif',{'id':var.id})}}" class="btn btn-info">Modifier</a>
+        
+        </td>
+
+        
+    </tr>
+        {% endfor %}
+
+
+</table>
+
+{% endblock %}

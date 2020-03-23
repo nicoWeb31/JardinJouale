@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des legumes{% endblock %}
+{% block monTitle %} Variétes de {{legume.nom}}{% endblock %}
+
+{% block body %}
+
+<img src="{{asset('images/legumes/' ~ legume.img)}}" alt="" style="width: 150px">
+
+<table class="table">
+    <tr class="table-primary">
+
+        <td>Noms</td>
+        <td>Quantités</td>
+        <td>commentaire</td>
+
+    </tr>
+    {% for variete in legume.varietes %}
+        <tr>
+        <td>{{variete.nom}}</td>
+        <td>{{variete.quantites}}</td>
+        <td>{{variete.commentaire}}</td>
+        
+    </tr>
+        {% endfor %}
+    
+
+
+
+</table>
+
+{% endblock %}

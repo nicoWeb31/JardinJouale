@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des legumes{% endblock %}
+{% block monTitle %} 
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+<div class="container">
+
+{{form_start(form)}}
+
+{{form_widget(form)}}
+
+<input type="submit" value="enregistrer" class="btn btn-primary">
+{{form_end(form)}}
+
+{% endblock %}

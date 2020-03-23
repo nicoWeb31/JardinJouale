@@ -14,7 +14,7 @@ class LegumeType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('imgFile',FileType::class,['required' => false])
+            ->add('imageFile',FileType::class,['required' => false])
             ->add('type')
         ;
     }

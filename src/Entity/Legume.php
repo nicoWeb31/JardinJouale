@@ -2,20 +2,25 @@
 
 namespace App\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Entity\File as EmbeddedFile;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LegumeRepository")
  * @Vich\Uploadable
  */
+
 class Legume
 {
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -30,17 +35,34 @@ class Legume
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $img;
 
-
-
     /**
-     * @Vich\UploadableField(mapping="legume_image", fileNameProperty="img")
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="legumeImg", fileNameProperty="img")
+     * @var File|null
      */
-    private $imgFile;
+    private $imageFile;
 
+    public function setImageFile(?File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updated_at = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -48,6 +70,22 @@ class Legume
      */
 
     private $type;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Variete", mappedBy="legume")
+     */
+    private $varietes;
+
+    public function __construct()
+    {
+        $this->varietes = new ArrayCollection();
+        $this->updated_at = New DateTime('now');
+    }
 
     public function getId(): ?int
     {
@@ -90,20 +128,46 @@ class Legume
         return $this;
     }
 
-    public function setImgFile(?File $imgFile = null): self
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        $this->imageFile = $imgFile;
+        return $this->updated_at;
+    }
 
-        // if (null !== $imgFile) {
-        //     // It is required that at least one field changes if you are using doctrine
-        //     // otherwise the event listeners won't be called and the file is lost
-        //     $this->updatedAt = new \DateTimeImmutable();
-        // }
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
         return $this;
     }
 
-    public function getImgFile(): ?File
+    /**
+     * @return Collection|Variete[]
+     */
+    public function getVarietes(): Collection
     {
-        return $this->imgFile;
+        return $this->varietes;
+    }
+
+    public function addVariete(Variete $variete): self
+    {
+        if (!$this->varietes->contains($variete)) {
+            $this->varietes[] = $variete;
+            $variete->setLegume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVariete(Variete $variete): self
+    {
+        if ($this->varietes->contains($variete)) {
+            $this->varietes->removeElement($variete);
+            // set the owning side to null (unless already changed)
+            if ($variete->getLegume() === $this) {
+                $variete->setLegume(null);
+            }
+        }
+
+        return $this;
     }
 }
