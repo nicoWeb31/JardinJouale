@@ -15,6 +15,7 @@
 <a href="{{path('admin.variete.creation')}}" class="btn btn-primary">Ajouter</a>
 <table class="table">
     <tr class="table-primary">
+        <td>Image</td>
         <td>Type</td>
         <td>Nom</td>
         <td>Quantites</td>
@@ -24,14 +25,20 @@
     </tr>
     {% for var in variete %}
         <tr>
+        <td><img src="{{asset('/images/legumes/' ~ var.legume.img)}}" alt="" style="width: 30px"></td>
         <td>{{var.legume.nom}}</td>
         <td>{{var.nom}}</td>
         <td>{{var.quantites}}</td>
         <td>{{var.commentaire}}</td>
         <td>
             <a href="{{path('admin.variete.modif',{'id':var.id})}}" class="btn btn-info">Modifier</a>
-        
+            <form action="{{path('admin.variete.suppr', {'id':var.id})}}" method="POST" class="d-inline" onsubmit="return confirm('comfirmer suppression?')">
+                <input type="hidden" name="_method" value="sup">
+                <input type="hidden" name="_token" value="{{csrf_token('sup'~ var.id )}}">
+                <input type="submit" class="btn btn-danger" value="supprimer">
+            </form>
         </td>
+        
 
         
     </tr>

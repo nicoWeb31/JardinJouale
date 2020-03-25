@@ -43,19 +43,19 @@ class Legume
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="legumeImg", fileNameProperty="img")
-     * @var File|null
+     * 
      */
     private $imageFile;
 
-    public function setImageFile(?File $imageFile = null)
+    public function setImageFile(File $imageFile = null)
     {
         $this->imageFile = $imageFile;
         return $this;
 
-        if (null !== $imageFile) {
+        if ($this->imageFile instanceof UploadedFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updated_at = new \DateTimeImmutable();
+            $this->updated_at = new \DateTime('now');
         }
     }
 
@@ -81,10 +81,16 @@ class Legume
      */
     private $varietes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Mois", mappedBy="legumes")
+     */
+    private $mois;
+
     public function __construct()
     {
         $this->varietes = new ArrayCollection();
         $this->updated_at = New DateTime('now');
+        $this->mois = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,7 +115,7 @@ class Legume
         return $this->img;
     }
 
-    public function setImg(?string $img): self
+    public function setImg(?string $img): self    // set image doit etre null
     {
         $this->img = $img;
 
@@ -166,6 +172,34 @@ class Legume
             if ($variete->getLegume() === $this) {
                 $variete->setLegume(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mois[]
+     */
+    public function getMois(): Collection
+    {
+        return $this->mois;
+    }
+
+    public function addMois(Mois $mois): self
+    {
+        if (!$this->mois->contains($mois)) {
+            $this->mois[] = $mois;
+            $mois->addLegume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMois(Mois $mois): self
+    {
+        if ($this->mois->contains($mois)) {
+            $this->mois->removeElement($mois);
+            $mois->removeLegume($this);
         }
 
         return $this;

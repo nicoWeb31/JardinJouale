@@ -16,6 +16,13 @@
                     <h3 class="card-title text-center pb-2 mx-3 border-primary">
                         <a href="{{path('legume.variete',{'id' : legume.id})}}">{{legume.nom}}</a>
                     </h3>
+                    <h5>Semer en :</h5>
+                    <ul>
+                        {% for mois in legume.mois %}
+                            <li>{{mois.nom}}</li>
+                        {% endfor %}
+
+                    </ul>
                 </div>
             </div>
         </div>

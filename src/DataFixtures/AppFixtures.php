@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Mois;
 use App\Entity\Legume;
 use App\Entity\Variete;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -14,6 +15,67 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
+
+        // =====================================================================
+        // Mois
+        // =====================================================================
+        $ja = New Mois();
+        $ja->setNom('Janvier');
+        $manager->persist($ja);
+
+        $fevr = New Mois();
+        $fevr->setNom('Fevrier');
+        $manager->persist($fevr);
+
+        $mars = New Mois();
+        $mars->setNom('Mars');
+        $manager->persist($mars);
+
+        $avril = New Mois();
+        $avril->setNom('Janvier');
+        $manager->persist($avril);
+
+        $ja = New Mois();
+        $ja->setNom('Avril');
+        $manager->persist($ja);
+
+        $mai = New Mois();
+        $mai->setNom('Mai');
+        $manager->persist($mai);
+
+        $juin = New Mois();
+        $juin->setNom('Juin');
+        $manager->persist($juin);
+
+        $juillet = New Mois();
+        $juillet->setNom('Juillet');
+        $manager->persist($juillet);
+
+        $aout = New Mois();
+        $aout->setNom('Aout');
+        $manager->persist($aout);
+
+        $sept = New Mois();
+        $sept->setNom('septembre');
+        $manager->persist($sept);
+
+        $Octobre = New Mois();
+        $Octobre->setNom('Octobre');
+        $manager->persist($Octobre);
+
+        $novembre = New Mois();
+        $novembre->setNom('Novembre');
+        $manager->persist($novembre);
+
+        $dece = New Mois();
+        $dece->setNom('Decembre');
+        $manager->persist($dece);
+
+
+
+        // =====================================================================
+        // legumes
+        // =====================================================================
         $leg1 = new Legume();
         $leg1->setNom('Tomate')
         ->setType('Legume du soleil')
@@ -34,6 +96,10 @@ class AppFixtures extends Fixture
         ->setImg('patate.png');
         $manager->persist($leg3);
 
+
+        // =====================================================================
+        // variete
+        // =====================================================================
         $vari = new Variete();
         $vari->setNom('Orange Queens')
         ->setQuantites(100)
