@@ -28,6 +28,16 @@ class Mois
      */
     private $legumes;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $saison;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
     public function __construct()
     {
         $this->legumes = new ArrayCollection();
@@ -72,6 +82,30 @@ class Mois
         if ($this->legumes->contains($legume)) {
             $this->legumes->removeElement($legume);
         }
+
+        return $this;
+    }
+
+    public function getSaison(): ?string
+    {
+        return $this->saison;
+    }
+
+    public function setSaison(string $saison): self
+    {
+        $this->saison = $saison;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acceuil Jardin de la jouale{% endblock %}
+{% block monTitle %}Mois de {{mois.nom}}{% endblock %}
+
+{% block body %}
+<h2 class="text-center">{{mois.saison}}</h2>
+<img src="{{asset('/images/saisons/' ~ mois.image )}}" alt="" style="width: 500px" class="img-fluid rounded mx-auto d-block m-5" >
+<div class="d-flex justify-content-center "> 
+    <div class="col-12 col-md-6 col-lg-4 col-xl-4 ">
+        <div class="card border-primary mb-5 mx-auto" style="max-width: 50rem;">
+            <div class="card-header text-center">
+                <h2> Mois de {{mois.nom}}</h2>
+            </div>
+            <div class = 'card-body'>
+                <h3 class="card-title text-center pb-2 mx-3 border-primary">
+                    <ul>
+                    {% for legume in mois.legumes %}
+                            <li>
+                                {{legume.nom}}
+                            </li>
+                    {% endfor %}
+                    </ul>
+                </h3>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
