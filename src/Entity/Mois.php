@@ -24,7 +24,7 @@ class Mois
     private $nom;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Legume", inversedBy="mois")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Legume",mappedBy="mois")
      */
     private $legumes;
 

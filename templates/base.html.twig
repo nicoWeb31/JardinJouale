@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{asset('css/main.css')}}">    
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
 
     <title>{% block title %}Welcome!{% endblock %}</title>
 
@@ -24,22 +24,23 @@
                     <a class="nav-link" href="{{ path('legumes') }}">Listes des legumes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mois par mois</a>
+                    <a class="nav-link" href="{{ path('mois') }}">Mois par mois</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"></a>
                 </li>
             </ul>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Administration
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{{path('admin_legumes')}}">Gestion Type</a>
-                  <a class="dropdown-item" href="{{path('admin_variete')}}">Gestion Variétes</a>
-                  <a class="dropdown-item" href="#">Gestion Plannig</a>
+                    <a class="dropdown-item" href="{{ path('admin_legumes') }}">Gestion Type</a>
+                    <a class="dropdown-item" href="{{ path('admin_variete') }}">Gestion Variétes</a>
+                    <a class="dropdown-item" href="{{ path('mois') }}">Gestion Plannig</a>
                 </div>
-              </div>
+            </div>
         </div>
     </nav>
     <h1 class="border border-primary rounded p-2 m-2 text-white bg-primary">

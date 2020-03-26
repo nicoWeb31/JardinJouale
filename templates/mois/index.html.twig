@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MoisController!{% endblock %}
+{% block monTitle %}Jardin mois par mois{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row m-5 p-5">
+        {% for m in mois %}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem;">
+                <div class="card-header text-center">
+                    <img src="" alt="">
+                </div>
+                <div class = 'card-body'>
+                    <h3 class="card-title text-center pb-2 mx-3 border-primary">
+                        <a href="{{path('legume.variete',{'id' : m.id})}}">{{m.nom}}</a>
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

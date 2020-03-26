@@ -82,7 +82,7 @@ class Legume
     private $varietes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Mois", mappedBy="legumes")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Mois", inversedBy="legumes")
      */
     private $mois;
 

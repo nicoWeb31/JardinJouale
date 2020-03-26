@@ -43,7 +43,6 @@ class AdminLegumeController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $modif = $legume->getId() !== null;
             $legume->setUpdatedAt(new DateTime('now'));
-            dd($req);
             $man->persist($legume);
             $man->flush();
             $this->addFlash('success',($modif) ? "modification avec sucess" : "Crée avec success");
